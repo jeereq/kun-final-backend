@@ -34,7 +34,7 @@ const handleErrors = (error) => {
 		return errs;
 	}
 
-	if (error.message.includes("user validation failed")) {
+	if (error.message.includes("restaurant validation failed")) {
 		//validation errors
 		Object.values(error.errors).forEach(({ properties }) => {
 			errs[properties.path] = properties.message;

@@ -26,11 +26,11 @@ const handleErrors = (error) => {
 		errs.password = "that password is not registered";
 	}
 
-	//duplicate errors
-	if (error.code === 11000) {
-		errs.email = "that email is already registered";
-		return errs;
-	}
+//duplicate errors
+if (error.code === 11000) {
+	errs.email = "that email is already registered";
+	return errs;
+}
 
 	if (error.message.includes("user validation failed")) {
 		//validation errors
@@ -42,13 +42,9 @@ const handleErrors = (error) => {
 };
 
 module.exports = {
-	signup_get: (req, res) => {
-		res.render("signup");
-	},
 	signup_post: async (req, res) => {
-		const { email, password, pseudo } = req.body;
-		console.log("req.body : ", req.body);
-		const user = new User({ email, password, pseudo });
+		const { email, password, pseudo, phoneNumber } = req.body;
+		const user = new User({ email, password, pseudo, phoneNumber });
 		user.save((err, NewUser) => {
 			if (err) {
 				const errors = handleErrors(err);
@@ -58,9 +54,6 @@ module.exports = {
 			res.cookie("jwt", token, { httpOnly: true, maxAge: MaxAge });
 			res.status(201).json({ _id: NewUser._id });
 		});
-	},
-	login_get: (req, res) => {
-		res.render("login");
 	},
 	login_post: async (req, res) => {
 		const { email, password } = req.body;

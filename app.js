@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
+const routes = require("./routes/routes");
 const { requireAuth } = require("./middlewares/authMiddlewares");
 const { MaxAge } = require("./controllers/authController");
 
@@ -33,19 +34,6 @@ mongoose
 	.catch((err) => console.log(err));
 
 // routes
-// app.use("*", requireAuth);
+
 app.use(authRoutes);
-
-//cookies
-app.get("/set-cookie", (req, res) => {
-	res.cookie("newUser", "", {
-		maxAge: MaxAge,
-		httpOnly: true
-	});
-	res.send("you got the cookies !!!");
-});
-
-app.get("/read-cookie", (req, res) => {
-	const cookies = req.cookies;
-	res.json(cookies);
-});
+app.use("/api/", routes);

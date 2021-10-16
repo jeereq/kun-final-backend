@@ -22,15 +22,17 @@ const userSchema = new Schema({
 		type: String,
 		required: [true, "please enter an password"],
 		minlength: [6, "Minimum password length is 6 charachters"]
-	}
+	},
+	phoneNumber: {
+		type: String,
+		required: [true, "please enter an phone number"],
+		minlength: [10, "Minimum phoe number length is 10 charachters"]
+	},
+	history: [],
+	favoris: []
 });
 
 //fire a function after doc saved to database
-
-userSchema.post("save", function (doc, next) {
-	console.log("new user was created " + doc);
-	next();
-});
 
 userSchema.pre("save", async function (next) {
 	const salt = await bcrypt.genSalt();
