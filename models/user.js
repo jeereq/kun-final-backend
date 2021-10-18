@@ -27,9 +27,7 @@ const userSchema = new Schema({
 		type: String,
 		required: [true, "please enter an phone number"],
 		minlength: [10, "Minimum phoe number length is 10 charachters"]
-	},
-	history: [],
-	favoris: []
+	}
 });
 
 //fire a function after doc saved to database

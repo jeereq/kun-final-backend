@@ -57,7 +57,7 @@ const restaurantSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: [true, "please enter an password"],
+		required: [true, "please enter a password"],
 		minlength: [6, "Minimum password length is 6 charachters"]
 	}
 });

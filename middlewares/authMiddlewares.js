@@ -11,7 +11,7 @@ const requireAuth = (req, res, next) => {
 			else next();
 		});
 	} else {
-		res.json({ error: "vous n'etes pas autoriser a etre ici " });
+		res.json({ error: "vous n'etes pas un des nos utilisateurs" });
 	}
 };
 const requireAuthRestaurant = async (req, res, next) => {
@@ -19,16 +19,21 @@ const requireAuthRestaurant = async (req, res, next) => {
 	//check json web token exist & is verified
 	if (token) {
 		jwt.verify(token, "jeereq", async (err, decodeToken) => {
-			if (err) res.json({ error: "vous n'etes pas autoriser a etre ici " });
+			if (err)
+				res
+					.status(400)
+					.json({ error: "vous n'etes pas autoriser a etre ici " });
 			else {
 				const answer = await Restaurant.verifyId(decodeToken.id);
 				if (answer.length === 0)
-					res.json({ error: "vous n'etes pas autoriser a faire cette action	" });
+					res
+						.status(400)
+						.json({ error: "vous n'etes pas autoriser a faire cette action	" });
 				else next();
 			}
 		});
 	} else {
-		res.json({ error: "vous n'etes pas autoriser a etre ici " });
+		res.status(400).json({ error: "vous n'etes pas un des nos utilisateurs" });
 	}
 };
 
