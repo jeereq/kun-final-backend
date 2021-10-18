@@ -16,11 +16,14 @@ app.use(cookieParser());
 
 // database connection
 mongoose
-	.connect("mongodb://localhost:27017/kun", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true
-	})
+	.connect(
+		"mongodb+srv://jeereq:mj13111999@cluster0.w82cr.mongodb.net/kun?retryWrites=true&w=majority",
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useCreateIndex: true
+		}
+	)
 	.then(() => {
 		app.listen(3000, () => {
 			console.log("evrything is ok");
